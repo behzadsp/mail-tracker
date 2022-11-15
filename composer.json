@@ -1,19 +1,19 @@
 {
-    "name": "jdavidbakr/mail-tracker",
+    "name": "behzadsp/mail-tracker",
     "type": "library",
-    "description": "Logs and tracks all outgoing emails from Laravel",
+    "description": "Custom package forked from https://github.com/jdavidbakr/mail-tracker",
     "keywords": [
-        "jdavidbakr",
+        "behzadsp",
         "MailTracker"
     ],
     "minimum-stability": "dev",
-    "homepage": "https://github.com/jdavidbakr/MailTracker",
+    "homepage": "https://github.com/behzadsp/MailTracker",
     "license": "MIT",
     "authors": [
         {
-            "name": "J David Baker",
-            "email": "me@jdavidbaker.com",
-            "homepage": "http://www.jdavidbaker.com",
+            "name": "Behzad Soltanpour",
+            "email": "behzad@engineer.com",
+            "homepage": "https://github.com/behzadsp",
             "role": "Developer"
         }
     ],
