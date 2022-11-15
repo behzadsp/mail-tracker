@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
-use jdavidbakr\MailTracker\Model\SentEmail;
+use behzadsp\MailTracker\Model\SentEmail;
 use Illuminate\Database\Migrations\Migration;
 
 class AddSenderEmailAndNameToSentEmailsTable extends Migration

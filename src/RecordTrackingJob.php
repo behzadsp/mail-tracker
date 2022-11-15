@@ -1,6 +1,6 @@
 <?php
 
-namespace jdavidbakr\MailTracker;
+namespace behzadsp\MailTracker;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Event;
@@ -8,11 +8,11 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use jdavidbakr\MailTracker\Model\SentEmail;
-use jdavidbakr\MailTracker\Events\ViewEmailEvent;
-use jdavidbakr\MailTracker\Events\LinkClickedEvent;
-use jdavidbakr\MailTracker\Model\SentEmailUrlClicked;
-use jdavidbakr\MailTracker\Events\EmailDeliveredEvent;
+use behzadsp\MailTracker\Model\SentEmail;
+use behzadsp\MailTracker\Events\ViewEmailEvent;
+use behzadsp\MailTracker\Events\LinkClickedEvent;
+use behzadsp\MailTracker\Model\SentEmailUrlClicked;
+use behzadsp\MailTracker\Events\EmailDeliveredEvent;
 
 class RecordTrackingJob implements ShouldQueue
 {

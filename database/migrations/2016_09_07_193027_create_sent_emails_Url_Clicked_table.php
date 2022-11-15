@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use jdavidbakr\MailTracker\Model\SentEmailUrlClicked;
+use behzadsp\MailTracker\Model\SentEmailUrlClicked;
 
 class CreateSentEmailsUrlClickedTable extends Migration
 {

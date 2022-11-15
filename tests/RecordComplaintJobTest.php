@@ -1,13 +1,13 @@
 <?php
 
-namespace jdavidbakr\MailTracker\Tests;
+namespace behzadsp\MailTracker\Tests;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Event;
-use jdavidbakr\MailTracker\Model\SentEmail;
-use jdavidbakr\MailTracker\RecordBounceJob;
-use jdavidbakr\MailTracker\RecordComplaintJob;
-use jdavidbakr\MailTracker\Events\ComplaintMessageEvent;
+use behzadsp\MailTracker\Model\SentEmail;
+use behzadsp\MailTracker\RecordBounceJob;
+use behzadsp\MailTracker\RecordComplaintJob;
+use behzadsp\MailTracker\Events\ComplaintMessageEvent;
 
 class RecordComplaintJobTest extends SetUpTest
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace jdavidbakr\MailTracker;
+namespace behzadsp\MailTracker;
 
 use Illuminate\Mail\Events\MessageSending;
 use Illuminate\Mail\Events\MessageSent;
@@ -111,7 +111,7 @@ class MailTrackerServiceProvider extends ServiceProvider
     protected function installRoutes()
     {
         $config = $this->app['config']->get('mail-tracker.route', []);
-        $config['namespace'] = 'jdavidbakr\MailTracker';
+        $config['namespace'] = 'behzadsp\MailTracker';
 
         if (!$this->isLumen()) {
             Route::group($config, function () {
@@ -130,7 +130,7 @@ class MailTrackerServiceProvider extends ServiceProvider
         }
         // Install the Admin routes
         $config_admin = $this->app['config']->get('mail-tracker.admin-route', []);
-        $config_admin['namespace'] = 'jdavidbakr\MailTracker';
+        $config_admin['namespace'] = 'behzadsp\MailTracker';
 
         if (Arr::get($config_admin, 'enabled', true)) {
             if (!$this->isLumen()) {

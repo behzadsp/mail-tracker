@@ -48,7 +48,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "jdavidbakr\\MailTracker\\MailTrackerServiceProvider"
+                "behzadsp\\MailTracker\\MailTrackerServiceProvider"
             ]
         }
     }
