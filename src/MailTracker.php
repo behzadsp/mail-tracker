@@ -46,7 +46,7 @@ class MailTracker
         $message = $event->message;
 
         // Create the trackers
-        $this->createTrackers($message);
+        $this->createTrackers($message, $event->data);
 
         // Purge old records
         $this->purgeOldRecords();
@@ -180,7 +180,7 @@ class MailTracker
      * @param  Swift_Mime_Message $message
      * @return void
      */
-    protected function createTrackers($message)
+    protected function createTrackers($message, $data)
     {
         foreach ($message->getTo() as $toAddress) {
             $to_email = $toAddress->getAddress();
@@ -256,10 +256,10 @@ class MailTracker
 
                 $tracker = SentEmail::create([
                     'hash' => $hash,
-                    'sender_id' => isset($message->data['sender_id']) ? $message->data['sender_id'] : null,
-                    'template_id' => isset($message->data['template_id']) ? $message->data['template_id'] : null,
-                    'emailable_type' => isset($message->data['emailable_type']) ? $message->data['emailable_type'] : null,
-                    'emailable_id' => isset($message->data['emailable_id']) ? $message->data['emailable_id'] : null,
+                    'sender_id' => isset($data['sender_id']) ? $data['sender_id'] : null,
+                    'template_id' => isset($data['template_id']) ? $data['template_id'] : null,
+                    'emailable_type' => isset($data['emailable_type']) ? $data['emailable_type'] : null,
+                    'emailable_id' => isset($data['emailable_id']) ? $data['emailable_id'] : null,
                     'headers' => $headers->toString(),
                     'sender_name' => $from_name,
                     'sender_email' => $from_email,

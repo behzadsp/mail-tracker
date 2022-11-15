@@ -24,6 +24,8 @@ class SentEmail extends Model
         'hash',
         'sender_id',
         'template_id',
+        'emailable_type',
+        'emailable_id',
         'headers',
         'sender_name',
         'sender_email',
