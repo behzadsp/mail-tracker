@@ -34,12 +34,12 @@
     },
     "autoload": {
         "psr-4": {
-            "jdavidbakr\\MailTracker\\": "src"
+            "behzadsp\\MailTracker\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "jdavidbakr\\MailTracker\\Tests\\": "tests"
+            "behzadsp\\MailTracker\\Tests\\": "tests"
         }
     },
     "scripts": {
