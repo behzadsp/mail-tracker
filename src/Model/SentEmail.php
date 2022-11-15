@@ -4,6 +4,7 @@ namespace jdavidbakr\MailTracker\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Models\User;
 
 /**
  * @property string $hash
@@ -21,6 +22,8 @@ class SentEmail extends Model
 {
     protected $fillable = [
         'hash',
+        'sender_id',
+        'template_id',
         'headers',
         'sender_name',
         'sender_email',
@@ -147,5 +150,20 @@ class SentEmail extends Model
     public function urlClicks()
     {
         return $this->hasMany(SentEmailUrlClicked::class);
+    }
+
+    public function sender()
+    {
+        return $this->belongsTo(User::class, 'sender_id', 'id');
+    }
+
+    public function template()
+    {
+        return $this->belongsTo(EmailTemplate::class, 'template_id', 'id');
+    }
+
+    public function emailable()
+    {
+        return $this->morphTo();
     }
 }

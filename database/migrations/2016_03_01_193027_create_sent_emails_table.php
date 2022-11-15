@@ -15,6 +15,9 @@ class CreateSentEmailsTable extends Migration
     {
         Schema::connection((new SentEmail)->getConnectionName())->create('sent_emails', function (Blueprint $table) {
             $table->increments('id');
+            $table->foreignId('sender_id')->nullable();
+            $table->foreignId('template_id')->nullable();
+            $table->nullableMorphs('emailable');
             $table->char('hash', 32)->unique();
             $table->text('headers')->nullable();
             $table->string('subject')->nullable();

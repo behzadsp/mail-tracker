@@ -256,6 +256,10 @@ class MailTracker
 
                 $tracker = SentEmail::create([
                     'hash' => $hash,
+                    'sender_id' => isset($message->data['sender_id']) ? $message->data['sender_id'] : null,
+                    'template_id' => isset($message->data['template_id']) ? $message->data['template_id'] : null,
+                    'emailable_type' => isset($message->data['emailable_type']) ? $message->data['emailable_type'] : null,
+                    'emailable_id' => isset($message->data['emailable_id']) ? $message->data['emailable_id'] : null,
                     'headers' => $headers->toString(),
                     'sender_name' => $from_name,
                     'sender_email' => $from_email,
