@@ -154,7 +154,7 @@ class SentEmail extends Model
         return $this->hasMany(SentEmailUrlClicked::class);
     }
 
-    public function sender()
+    public function user()
     {
         return $this->belongsTo(User::class, 'sender_id', 'id');
     }
