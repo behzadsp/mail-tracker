@@ -258,6 +258,7 @@ class MailTracker
                     'hash' => $hash,
                     'sender_id' => isset($data['sender_id']) ? $data['sender_id'] : null,
                     'template_id' => isset($data['template_id']) ? $data['template_id'] : null,
+                    'scenario_id' => isset($data['scenario_id']) ? $data['scenario_id'] : null,
                     'emailable_type' => isset($data['emailable_type']) ? $data['emailable_type'] : null,
                     'emailable_id' => isset($data['emailable_id']) ? $data['emailable_id'] : null,
                     'headers' => $headers->toString(),

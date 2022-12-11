@@ -5,6 +5,7 @@ namespace behzadsp\MailTracker\Model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use App\Models\User;
+use App\Models\Scenario;
 
 /**
  * @property string $hash
@@ -24,6 +25,7 @@ class SentEmail extends Model
         'hash',
         'sender_id',
         'template_id',
+        'scenario_id',
         'emailable_type',
         'emailable_id',
         'headers',
@@ -162,6 +164,11 @@ class SentEmail extends Model
     public function template()
     {
         return $this->belongsTo(EmailTemplate::class, 'template_id', 'id');
+    }
+
+    public function scenario()
+    {
+        return $this->belongsTo(Scenario::class, 'scenario_id', 'id');
     }
 
     public function emailable()

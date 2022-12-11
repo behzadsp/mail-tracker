@@ -17,6 +17,7 @@ class CreateSentEmailsTable extends Migration
             $table->increments('id');
             $table->foreignId('sender_id')->nullable();
             $table->foreignId('template_id')->nullable();
+            $table->foreignId('scenario_id')->nullable();
             $table->nullableMorphs('emailable');
             $table->char('hash', 32)->unique();
             $table->text('headers')->nullable();
