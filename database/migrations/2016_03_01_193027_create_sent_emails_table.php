@@ -22,7 +22,7 @@ class CreateSentEmailsTable extends Migration
             $table->char('hash', 32)->unique();
             $table->text('headers')->nullable();
             $table->string('subject')->nullable();
-            $table->text('content')->nullable();
+//            $table->text('content')->nullable();
             $table->integer('opens')->nullable();
             $table->integer('clicks')->nullable();
             $table->timestamps();
