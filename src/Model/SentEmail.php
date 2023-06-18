@@ -34,7 +34,7 @@ class SentEmail extends Model
         'recipient_name',
         'recipient_email',
         'subject',
-        'content',
+//        'content',
         'opens',
         'clicks',
         'message_id',

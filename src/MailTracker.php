@@ -267,11 +267,11 @@ class MailTracker
                     'recipient_name' => $to_name,
                     'recipient_email' => $to_email,
                     'subject' => $subject,
-                    'content' => config('mail-tracker.log-content', true) ?
-                        (Str::length($original_html) > config('mail-tracker.content-max-size', 65535) ?
-                            Str::substr($original_html, 0, config('mail-tracker.content-max-size', 65535)) . '...' :
-                            $original_html)
-                        : null,
+//                    'content' => config('mail-tracker.log-content', true) ?
+//                        (Str::length($original_html) > config('mail-tracker.content-max-size', 65535) ?
+//                            Str::substr($original_html, 0, config('mail-tracker.content-max-size', 65535)) . '...' :
+//                            $original_html)
+//                        : null,
                     'opens' => 0,
                     'clicks' => 0,
                     'message_id' => Str::uuid(),
