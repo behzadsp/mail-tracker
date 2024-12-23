@@ -1,11 +1,11 @@
 <?php
 
-namespace jdavidbakr\MailTracker\Events;
+namespace behzadsp\MailTracker\Events;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\SerializesModels;
-use jdavidbakr\MailTracker\Contracts\SentEmailModel;
+use behzadsp\MailTracker\Contracts\SentEmailModel;
 
 class LinkClickedEvent implements ShouldQueue
 {

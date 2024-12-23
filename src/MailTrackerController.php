@@ -1,13 +1,13 @@
 <?php
 
-namespace jdavidbakr\MailTracker;
+namespace behzadsp\MailTracker;
 
 use App\Http\Requests;
 use Event;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use jdavidbakr\MailTracker\Events\ValidActionEvent;
-use jdavidbakr\MailTracker\Exceptions\BadUrlLink;
+use behzadsp\MailTracker\Events\ValidActionEvent;
+use behzadsp\MailTracker\Exceptions\BadUrlLink;
 use Response;
 
 class MailTrackerController extends Controller

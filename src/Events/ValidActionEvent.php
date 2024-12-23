@@ -1,10 +1,10 @@
 <?php
 
-namespace jdavidbakr\MailTracker\Events;
+namespace behzadsp\MailTracker\Events;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Events\Dispatchable;
-use jdavidbakr\MailTracker\Contracts\SentEmailModel;
+use behzadsp\MailTracker\Contracts\SentEmailModel;
 
 class ValidActionEvent
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace jdavidbakr\MailTracker\Contracts;
+namespace behzadsp\MailTracker\Contracts;
 
 interface SentEmailModel
 {

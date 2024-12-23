@@ -1,12 +1,12 @@
 <?php
 
-namespace jdavidbakr\MailTracker\Tests;
+namespace behzadsp\MailTracker\Tests;
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
-use jdavidbakr\MailTracker\Events\ValidActionEvent;
-use jdavidbakr\MailTracker\MailTracker;
+use behzadsp\MailTracker\Events\ValidActionEvent;
+use behzadsp\MailTracker\MailTracker;
 
 class SkipListener
 {

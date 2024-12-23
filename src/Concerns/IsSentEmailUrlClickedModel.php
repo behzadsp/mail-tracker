@@ -1,8 +1,8 @@
 <?php
 
-namespace jdavidbakr\MailTracker\Concerns;
+namespace behzadsp\MailTracker\Concerns;
 
-use jdavidbakr\MailTracker\MailTracker;
+use behzadsp\MailTracker\MailTracker;
 
 trait IsSentEmailUrlClickedModel
 {

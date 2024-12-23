@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use jdavidbakr\MailTracker\MailTracker;
+use behzadsp\MailTracker\MailTracker;
 
 class CreateSentEmailsTable extends Migration
 {
@@ -15,6 +15,10 @@ class CreateSentEmailsTable extends Migration
     {
         Schema::connection(MailTracker::sentEmailModel()->getConnectionName())->create('sent_emails', function (Blueprint $table) {
             $table->increments('id');
+            $table->foreignId('sender_id')->nullable();
+            $table->foreignId('template_id')->nullable();
+            $table->foreignId('scenario_id')->nullable();
+            $table->nullableMorphs('emailable');
             $table->char('hash', 32)->unique();
             $table->text('headers')->nullable();
             $table->string('subject')->nullable();

@@ -1,11 +1,14 @@
 <?php
 
-namespace jdavidbakr\MailTracker\Model;
+namespace behzadsp\MailTracker\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use jdavidbakr\MailTracker\Concerns\IsSentEmailModel;
-use jdavidbakr\MailTracker\Contracts\SentEmailModel;
+use App\Models\User;
+use App\Models\EmailTemplate;
+use App\Models\Scenario;
+use behzadsp\MailTracker\Concerns\IsSentEmailModel;
+use behzadsp\MailTracker\Contracts\SentEmailModel;
 
 /**
  * @property string $hash
@@ -25,6 +28,11 @@ class SentEmail extends Model implements SentEmailModel
 
     protected $fillable = [
         'hash',
+        'sender_id',
+        'template_id',
+        'emailable_type',
+        'emailable_id',
+        'scenario_id',
         'headers',
         'sender_name',
         'sender_email',
@@ -62,5 +70,25 @@ class SentEmail extends Model implements SentEmailModel
         }
 
         return $domains;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'sender_id', 'id');
+    }
+
+    public function template()
+    {
+        return $this->belongsTo(EmailTemplate::class, 'template_id', 'id');
+    }
+
+    public function scenario()
+    {
+        return $this->belongsTo(Scenario::class, 'scenario_id', 'id');
+    }
+
+    public function emailable()
+    {
+        return $this->morphTo();
     }
 }

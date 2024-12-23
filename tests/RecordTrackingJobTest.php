@@ -1,17 +1,17 @@
 <?php
 
-namespace jdavidbakr\MailTracker\Tests;
+namespace behzadsp\MailTracker\Tests;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Event;
-use jdavidbakr\MailTracker\MailTracker;
-use jdavidbakr\MailTracker\RecordBounceJob;
-use jdavidbakr\MailTracker\RecordDeliveryJob;
-use jdavidbakr\MailTracker\RecordTrackingJob;
-use jdavidbakr\MailTracker\RecordComplaintJob;
-use jdavidbakr\MailTracker\RecordLinkClickJob;
-use jdavidbakr\MailTracker\Events\ViewEmailEvent;
-use jdavidbakr\MailTracker\Events\LinkClickedEvent;
+use behzadsp\MailTracker\MailTracker;
+use behzadsp\MailTracker\RecordBounceJob;
+use behzadsp\MailTracker\RecordDeliveryJob;
+use behzadsp\MailTracker\RecordTrackingJob;
+use behzadsp\MailTracker\RecordComplaintJob;
+use behzadsp\MailTracker\RecordLinkClickJob;
+use behzadsp\MailTracker\Events\ViewEmailEvent;
+use behzadsp\MailTracker\Events\LinkClickedEvent;
 
 class RecordTrackingJobTest extends SetUpTest
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace jdavidbakr\MailTracker;
+namespace behzadsp\MailTracker;
 
 use Closure;
 use Illuminate\Database\Eloquent\Model;
@@ -10,10 +10,10 @@ use Illuminate\Mail\SentMessage;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use jdavidbakr\MailTracker\Contracts\SentEmailModel;
-use jdavidbakr\MailTracker\Events\EmailSentEvent;
-use jdavidbakr\MailTracker\Model\SentEmail;
-use jdavidbakr\MailTracker\Model\SentEmailUrlClicked;
+use behzadsp\MailTracker\Contracts\SentEmailModel;
+use behzadsp\MailTracker\Events\EmailSentEvent;
+use behzadsp\MailTracker\Model\SentEmail;
+use behzadsp\MailTracker\Model\SentEmailUrlClicked;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Part\Multipart\AlternativePart;
 use Symfony\Component\Mime\Part\Multipart\MixedPart;
@@ -107,7 +107,7 @@ class MailTracker
         $message = $event->message;
 
         // Create the trackers
-        $this->createTrackers($message);
+        $this->createTrackers($message, $event->data);
 
         // Purge old records
         $this->purgeOldRecords();
@@ -241,7 +241,7 @@ class MailTracker
      * @param  Email $message
      * @return void
      */
-    protected function createTrackers(Email $message)
+    protected function createTrackers(Email $message, $data)
     {
         foreach ($message->getTo() as $toAddress) {
             $to_email = $toAddress->getAddress();
@@ -318,6 +318,11 @@ class MailTracker
                 /** @var SentEmail $tracker */
                 $tracker = tap(MailTracker::sentEmailModel([
                     'hash' => $hash,
+                    'sender_id' => $data['sender_id'] ?? null,
+                    'template_id' => $data['template_id'] ?? null,
+                    'emailable_type' => $data['emailable_type'] ?? null,
+                    'emailable_id' => $data['emailable_id'] ?? null,
+                    'scenario_id' => $data['scenario_id'] ?? null,
                     'headers' => $headers->toString(),
                     'sender_name' => $from_name,
                     'sender_email' => $from_email,

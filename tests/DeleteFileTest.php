@@ -1,9 +1,9 @@
 <?php
 
-namespace jdavidbakr\MailTracker\Tests;
+namespace behzadsp\MailTracker\Tests;
 
 use Illuminate\Support\Facades\Storage;
-use jdavidbakr\MailTracker\Model\SentEmail;
+use behzadsp\MailTracker\Model\SentEmail;
 
 class DeleteFileTest extends SetUpTest
 {

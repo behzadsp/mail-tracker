@@ -1,14 +1,14 @@
 <?php
 
-namespace jdavidbakr\MailTracker\Concerns;
+namespace behzadsp\MailTracker\Concerns;
 
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use jdavidbakr\MailTracker\Contracts\SentEmailModel;
-use jdavidbakr\MailTracker\MailTracker;
+use behzadsp\MailTracker\Contracts\SentEmailModel;
+use behzadsp\MailTracker\MailTracker;
 
 trait IsSentEmailModel
 {
