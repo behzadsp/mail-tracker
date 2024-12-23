@@ -305,8 +305,10 @@ class MailTracker
                 } else {
                     $original_html = $original_content->getBody();
                     if($original_content->getMediaSubtype() == 'html') {
+                        $trackedHtml = $this->addTrackers($original_html, $hash);
+                        $message->html($trackedHtml, $message->getHtmlCharset());
                         $message->setBody(new TextPart(
-                                $this->addTrackers($original_html, $hash),
+                                $trackedHtml,
                                 $message->getHtmlCharset(),
                                 $original_content->getMediaSubtype(),
                                 null
