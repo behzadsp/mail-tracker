@@ -4,7 +4,7 @@ namespace jdavidbakr\MailTracker\Tests;
 
 use Orchestra\Testbench\TestCase;
 
-abstract class SetUpTest extends TestCase
+class SetUpTest extends TestCase
 {
     /**
      * Setup the test environment.
@@ -14,8 +14,6 @@ abstract class SetUpTest extends TestCase
         parent::setUp();
 
         $this->artisan('migrate', ['--database' => 'testbench']);
-
-        return;
     }
 
     /**

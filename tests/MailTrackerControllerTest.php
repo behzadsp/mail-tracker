@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use jdavidbakr\MailTracker\Events\ValidActionEvent;
 use jdavidbakr\MailTracker\MailTracker;
+use PHPUnit\Framework\Attributes\Test;
 
 class SkipListener
 {
@@ -27,6 +28,7 @@ class ContinueListener
 
 class MailTrackerControllerTest extends SetUpTest
 {
+    #[Test]
     public function testReadTrackingIsSkipped()
     {
         Event::listen(
@@ -49,6 +51,7 @@ class MailTrackerControllerTest extends SetUpTest
         $this->assertNull($email->opened_at);
     }
 
+    #[Test]
     public function testReadTrackingIsNotSkipped()
     {
         Event::listen(
@@ -71,6 +74,7 @@ class MailTrackerControllerTest extends SetUpTest
         $this->assertNotNull($email->opened_at);
     }
 
+    #[Test]
     public function testLinkTrackingIsSkipped()
     {
         Event::listen(
@@ -99,6 +103,7 @@ class MailTrackerControllerTest extends SetUpTest
         $this->assertNull($email->clicked_at);
     }
 
+    #[Test]
     public function testLinkTrackingIsNotSkipped()
     {
         Event::listen(
