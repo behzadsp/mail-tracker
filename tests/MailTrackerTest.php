@@ -40,10 +40,6 @@ use Throwable;
 
 class IgnoreExceptions extends Handler
 {
-    public function __construct()
-    {
-    }
-
     public function report(Throwable $e)
     {
     }
@@ -934,9 +930,9 @@ class MailTrackerTest extends SetUpTest
         $subject     = $faker->sentence;
         $name        = $faker->firstName . ' ' . $faker->lastName;
         $header_test = Str::random(10);
-        \View::addLocation(__DIR__);
+        View::addLocation(__DIR__);
 
-        \Mail::send('email.test', [], function ($message) use ($email, $subject, $name, $header_test) {
+        Mail::send('email.test', [], function ($message) use ($email, $subject, $name, $header_test) {
             $message->from('from@johndoe.com', 'From Name');
             $message->sender('sender@johndoe.com', 'Sender Name');
 
@@ -1067,9 +1063,9 @@ class MailTrackerTest extends SetUpTest
         $email   = $faker->email;
         $subject = $faker->sentence;
         $name    = $faker->firstName . ' ' . $faker->lastName;
-        \View::addLocation(__DIR__);
+        View::addLocation(__DIR__);
 
-        \Mail::send('email.test', [], function ($message) use ($email, $subject, $name) {
+        Mail::send('email.test', [], function ($message) use ($email, $subject, $name) {
             $message->from('from@johndoe.com', 'From Name');
             $message->sender('sender@johndoe.com', 'Sender Name');
 
