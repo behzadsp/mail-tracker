@@ -71,4 +71,4 @@ jobs:
                     COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
                 run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
             -   name: Run tests
-                run: phpunit --configuration phpunit.xml --no-coverage
+                run: vendor/bin/phpunit --configuration phpunit.xml --no-coverage
