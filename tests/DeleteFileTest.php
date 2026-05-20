@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use jdavidbakr\MailTracker\Model\SentEmail;
 use PHPUnit\Framework\Attributes\Test;
 
-class DeleteFileTest extends SetUpTest
+class DeleteFileTest extends TestCase
 {
 
     #[Test]

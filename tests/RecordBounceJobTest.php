@@ -10,7 +10,7 @@ use jdavidbakr\MailTracker\MailTracker;
 use jdavidbakr\MailTracker\RecordBounceJob;
 use PHPUnit\Framework\Attributes\Test;
 
-class RecordBounceJobTest extends SetUpTest
+class RecordBounceJobTest extends TestCase
 {
     #[Test]
     public function it_handles_permanent_bounce()

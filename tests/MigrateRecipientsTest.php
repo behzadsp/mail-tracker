@@ -8,7 +8,7 @@ use jdavidbakr\MailTracker\Console\MigrateRecipients;
 use jdavidbakr\MailTracker\MailTracker;
 use PHPUnit\Framework\Attributes\Test;
 
-class MigrateRecipientsTest extends SetUpTest
+class MigrateRecipientsTest extends TestCase
 {
     #[Test]
     public function it_converts_existing_recipient_values()

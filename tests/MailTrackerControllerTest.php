@@ -26,7 +26,7 @@ class ContinueListener
     }
 }
 
-class MailTrackerControllerTest extends SetUpTest
+class MailTrackerControllerTest extends TestCase
 {
     #[Test]
     public function testReadTrackingIsSkipped()

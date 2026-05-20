@@ -3,6 +3,7 @@
 namespace jdavidbakr\MailTracker\Tests;
 
 use Faker\Factory;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Mail\Events\MessageSending;
@@ -38,13 +39,26 @@ use Symfony\Component\Mime\Header\Headers;
 use Symfony\Component\Mime\Part\AbstractPart;
 use Throwable;
 
-class IgnoreExceptions extends Handler
+class IgnoreExceptions implements ExceptionHandler
 {
+    public function __construct()
+    {
+    }
+
+    public function shouldReport(Throwable $e): bool
+    {
+        return true;
+    }
+
     public function report(Throwable $e)
     {
     }
 
     public function render($request, Throwable $e)
+    {
+        throw $e;
+    }
+    public function renderForConsole($output, Throwable $e)
     {
         throw $e;
     }
@@ -58,11 +72,11 @@ class TestMailable extends Mailable
     }
 }
 
-class MailTrackerTest extends SetUpTest
+class MailTrackerTest extends TestCase
 {
     protected function disableExceptionHandling()
     {
-        $this->app->instance(ExceptionHandler::class, new IgnoreExceptions);
+        $this->app->instance(ExceptionHandler::class, new IgnoreExceptions());
     }
 
     #[Test]

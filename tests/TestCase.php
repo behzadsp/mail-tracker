@@ -2,9 +2,9 @@
 
 namespace jdavidbakr\MailTracker\Tests;
 
-use Orchestra\Testbench\TestCase;
+use Orchestra\Testbench\TestCase as BaseTestCase;
 
-class SetUpTest extends TestCase
+abstract class TestCase extends BaseTestCase
 {
     /**
      * Setup the test environment.

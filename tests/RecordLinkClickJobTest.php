@@ -12,7 +12,7 @@ use jdavidbakr\MailTracker\RecordLinkClickJob;
 use jdavidbakr\MailTracker\Events\LinkClickedEvent;
 use PHPUnit\Framework\Attributes\Test;
 
-class RecordLinkClickJobTest extends SetUpTest
+class RecordLinkClickJobTest extends TestCase
 {
     #[Test]
     public function it_records_clicks_to_links()
