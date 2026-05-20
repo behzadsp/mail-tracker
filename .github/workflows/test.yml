@@ -12,11 +12,51 @@ jobs:
     test:
         strategy:
             matrix:
-                php: [ '8.1', '8.2', '8.3', '8.4', '8.5' ]
+                php: [ '8.2', '8.3', '8.4', '8.5' ]
                 laravel: [ '10.*', '11.*', '12.*', '13.*' ]
+                phpunit: [ '10.*', '11.*', '12.*' ]
                 operating-system:
                     - ubuntu-latest
-        name: php ${{ matrix.php }} on ${{ matrix.operating-system }} using Laravel ${{ matrix.laravel }}
+
+                exclude:
+                    # PHP 8.2 does not support Laravel 13
+                    -   php: '8.2'
+                        laravel: '13.*'
+
+                    # PHP 8.4 does not support Laravel 10
+                    -   php: '8.5'
+                        laravel: '10.*'
+
+                    # PHP 8.5 does not support Laravel 11 or Laravel 10
+                    -   php: '8.5'
+                        laravel: '11.*'
+                    -   php: '8.5'
+                        laravel: '10.*'
+
+                    # Laravel 10 does not support PHPUnit 10 or PHPUnit 12
+                    -   laravel: '10.*'
+                        phpunit: '11.*'
+                    -   laravel: '10.*'
+                        phpunit: '12.*'
+
+                    # Laravel 11 does not support PHPUnit 10 or PHPUnit 12
+                    -   laravel: '11.*'
+                        phpunit: '11.*'
+                    -   laravel: '11.*'
+                        phpunit: '12.*'
+
+                    # Laravel 12 does not support PHPUnit 10 or PHPUnit 12
+                    -   laravel: '12.*'
+                        phpunit: '10.*'
+                    -   laravel: '12.*'
+                        phpunit: '12.*'
+
+                    # Laravel 13 does not support PHPUnit 10 or PHPUnit 11
+                    -   laravel: '13.*'
+                        phpunit: '10.*'
+                    -   laravel: '13.*'
+                        phpunit: '11.*'
+        name: php ${{ matrix.php }} using Laravel ${{ matrix.laravel }} and PHPUnit ${{ matrix.phpunit }}
         runs-on: ${{ matrix.operating-system }}
         steps:
             -   name: Checkout
