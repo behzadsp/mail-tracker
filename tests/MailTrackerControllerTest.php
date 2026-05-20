@@ -89,7 +89,7 @@ class MailTrackerControllerTest extends SetUpTest
         $redirect = 'http://' . Str::random(15) . '.com/' . Str::random(10) . '/' . Str::random(10) . '/' . rand(0, 100) . '/' . rand(0, 100) . '?page=' . rand(0, 100) . '&x=' . Str::random(32);
 
         $this->get(URL::signedRoute('mailTracker_n', [
-            'n' => $redirect,
+            'l' => $redirect,
             'h' => $email->hash,
         ]));
 
