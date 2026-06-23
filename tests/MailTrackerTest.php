@@ -3,7 +3,6 @@
 namespace jdavidbakr\MailTracker\Tests;
 
 use Faker\Factory;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Mail\Events\MessageSending;
@@ -32,7 +31,7 @@ use jdavidbakr\MailTracker\RecordDeliveryJob;
 use jdavidbakr\MailTracker\RecordLinkClickJob;
 use jdavidbakr\MailTracker\RecordTrackingJob;
 use Mockery;
-use Orchestra\Testbench\Exceptions\Handler;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Header\Headers;
@@ -58,6 +57,7 @@ class IgnoreExceptions implements ExceptionHandler
     {
         throw $e;
     }
+
     public function renderForConsole($output, Throwable $e)
     {
         throw $e;
@@ -484,6 +484,36 @@ class MailTrackerTest extends TestCase
         ]);
 
         $this->get($url);
+    }
+
+    public static function linkDataProvider()
+    {
+        return [
+            'Normal HTTP URL' => ['http://goodwebsite.com/test.html'],
+            'Normal HTTPS URL' => ['https://goodwebsite.com/test.html'],
+            'Normal Tel' => ['tel:+123456789'],
+            'Normal Mailto' => ['mailto:test@email.com'],
+        ];
+    }
+
+    #[Test]
+    #[DataProvider('linkDataProvider')]
+    public function test_signed_link_redirects_to_valid_url(string $link)
+    {
+        $track = MailTracker::sentEmailModel()->newQuery()->create([
+            'hash'    => Str::random(32),
+            'content' => 'This is some content with a link to <a href="' . $link . '">Good website</a>',
+        ]);
+
+        $this->disableExceptionHandling();
+
+        $url = URL::signedRoute('mailTracker_n', [
+            'l' => $link,
+            'h' => $track->hash,
+        ]);
+
+        $this->get($url)
+            ->assertRedirect($link);
     }
 
     #[Test]
