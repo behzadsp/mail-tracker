@@ -18,6 +18,10 @@ class ValidateSignature extends Middleware
         $hash = $request->query('h');
         $url  = $request->query('l');
 
+        if (!$hash || !$url) {
+            return redirect(config('mail-tracker.redirect-missing-links-to') ?: '/');
+        }
+
         $uri = Uri::of($url);
 
         $validUriSchemes = ['http', 'https', 'tel', 'mailto'];
