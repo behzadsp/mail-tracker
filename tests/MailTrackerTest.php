@@ -474,6 +474,21 @@ class MailTrackerTest extends TestCase
     }
 
     #[Test]
+    public function it_redirects_to_fallback_for_missing_parameters()
+    {
+        Config::set('mail-tracker.redirect-missing-links-to', '/home');
+
+        $this->get(URL::route('mailTracker_n', ['l' => $invalidUrl]))
+            ->assertRedirect('/home');
+
+        $this->get(URL::route('mailTracker_n', ['h' => $track->hash]))
+            ->assertRedirect('/home');
+
+        $this->get(URL::route('mailTracker_n', []))
+            ->assertRedirect('/home');
+    }
+
+    #[Test]
     public function random_string_in_link_does_not_crash()
     {
         $this->disableExceptionHandling();
