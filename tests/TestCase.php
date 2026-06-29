@@ -2,9 +2,9 @@
 
 namespace behzadsp\MailTracker\Tests;
 
-use Orchestra\Testbench\TestCase;
+use Orchestra\Testbench\TestCase as BaseTestCase;
 
-abstract class SetUpTest extends TestCase
+abstract class TestCase extends BaseTestCase
 {
     /**
      * Setup the test environment.
@@ -14,8 +14,6 @@ abstract class SetUpTest extends TestCase
         parent::setUp();
 
         $this->artisan('migrate', ['--database' => 'testbench']);
-
-        return;
     }
 
     /**
@@ -59,6 +57,7 @@ abstract class SetUpTest extends TestCase
             'secret' => 'aws-secret',
         ]);
         $app['config']->set('mail.from.address', 'test@example.com');
+        $app['config']->set('mail.default', 'log');
         $app['config']->set('app.debug', true);
     }
 }

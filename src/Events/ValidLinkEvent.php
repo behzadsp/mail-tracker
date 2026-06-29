@@ -6,15 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Events\Dispatchable;
 use behzadsp\MailTracker\Contracts\SentEmailModel;
 
-class ValidActionEvent
+class ValidLinkEvent
 {
     use Dispatchable;
 
-    public $skip = false;
+    public $valid = false;
     public $sent_email;
+    public $url;
 
-    public function __construct(Model|SentEmailModel $sent_email)
+    public function __construct(Model|SentEmailModel $sent_email, $url)
     {
         $this->sent_email = $sent_email;
+        $this->url        = $url;
     }
 }

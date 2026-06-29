@@ -10,12 +10,11 @@ use behzadsp\MailTracker\RecordDeliveryJob;
 use behzadsp\MailTracker\RecordComplaintJob;
 use behzadsp\MailTracker\RecordLinkClickJob;
 use behzadsp\MailTracker\Events\LinkClickedEvent;
+use PHPUnit\Framework\Attributes\Test;
 
-class RecordLinkClickJobTest extends SetUpTest
+class RecordLinkClickJobTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_records_clicks_to_links()
     {
         Event::fake();

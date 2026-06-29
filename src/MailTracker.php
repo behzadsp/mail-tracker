@@ -9,6 +9,7 @@ use Illuminate\Mail\Events\MessageSent;
 use Illuminate\Mail\SentMessage;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use behzadsp\MailTracker\Contracts\SentEmailModel;
 use behzadsp\MailTracker\Events\EmailSentEvent;
@@ -107,7 +108,7 @@ class MailTracker
         $message = $event->message;
 
         // Create the trackers
-        $this->createTrackers($message, $event->data);
+        $this->createTrackers($message, $event->data ?? []);
 
         // Purge old records
         $this->purgeOldRecords();
@@ -214,25 +215,13 @@ class MailTracker
             $url = str_replace('&amp;', '&', $matches[2]);
         }
 
-        return $matches[1].route(
+        return $matches[1].URL::signedRoute(
             'mailTracker_n',
             [
                 'l' => $url,
-                'h' => $this->hash
+                'h' => $this->hash,
             ]
         );
-    }
-
-    /**
-     * Legacy function
-     *
-     * @param [type] $url
-     * @return boolean
-     */
-    public static function hash_url($url)
-    {
-        // Replace "/" with "$"
-        return str_replace("/", "$", base64_encode($url));
     }
 
     /**
@@ -306,7 +295,6 @@ class MailTracker
                     $original_html = $original_content->getBody();
                     if($original_content->getMediaSubtype() == 'html') {
                         $trackedHtml = $this->addTrackers($original_html, $hash);
-                        $message->html($trackedHtml, $message->getHtmlCharset());
                         $message->setBody(new TextPart(
                                 $trackedHtml,
                                 $message->getHtmlCharset(),
@@ -356,19 +344,27 @@ class MailTracker
     protected function purgeOldRecords()
     {
         if (config('mail-tracker.expire-days') > 0) {
-            $emails = MailTracker::sentEmailModel()->newQuery()->where('created_at', '<', \Carbon\Carbon::now()
-                ->subDays(config('mail-tracker.expire-days')))
-                ->select('id', 'meta')
-                ->get();
-            // remove files
-            $emails->each(function ($email) {
-                if ($email->meta && ($filePath = $email->meta->get('content_file_path'))) {
-                    Storage::disk(config('mail-tracker.tracker-filesystem'))->delete($filePath);
-                }
-            });
+            $cutoff = \Carbon\Carbon::now()->subDays(config('mail-tracker.expire-days'));
 
-            MailTracker::sentEmailUrlClickedModel()->newQuery()->whereIn('sent_email_id', $emails->pluck('id'))->delete();
-            MailTracker::sentEmailModel()->newQuery()->whereIn('id', $emails->pluck('id'))->delete();
+            // Delete in bounded chunks. Loading every expired id and passing it
+            // to a single whereIn() blows past the database placeholder limit
+            // (MySQL: 65535) once the backlog grows, which makes the delete throw
+            // before it can shrink the table - so it never recovers on its own.
+            MailTracker::sentEmailModel()->newQuery()
+                ->where('created_at', '<', $cutoff)
+                ->select('id', 'meta')
+                ->chunkById(1000, function ($emails) {
+                    // remove files
+                    $emails->each(function ($email) {
+                        if ($email->meta && ($filePath = $email->meta->get('content_file_path'))) {
+                            Storage::disk(config('mail-tracker.tracker-filesystem'))->delete($filePath);
+                        }
+                    });
+
+                    $ids = $emails->pluck('id');
+                    MailTracker::sentEmailUrlClickedModel()->newQuery()->whereIn('sent_email_id', $ids)->delete();
+                    MailTracker::sentEmailModel()->newQuery()->whereIn('id', $ids)->delete();
+                });
         }
     }
 }

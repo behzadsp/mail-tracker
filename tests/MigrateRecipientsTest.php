@@ -6,12 +6,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use behzadsp\MailTracker\Console\MigrateRecipients;
 use behzadsp\MailTracker\MailTracker;
+use PHPUnit\Framework\Attributes\Test;
 
-class MigrateRecipientsTest extends SetUpTest
+class MigrateRecipientsTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_converts_existing_recipient_values()
     {
         Schema::connection(MailTracker::sentEmailModel()->getConnectionName())->table('sent_emails', function (Blueprint $table) {
@@ -37,9 +36,7 @@ class MigrateRecipientsTest extends SetUpTest
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_converts_existing_recipient_values_with_no_name()
     {
         Schema::connection(MailTracker::sentEmailModel()->getConnectionName())->table('sent_emails', function (Blueprint $table) {

@@ -4,9 +4,11 @@ namespace behzadsp\MailTracker\Tests;
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use behzadsp\MailTracker\Events\ValidActionEvent;
 use behzadsp\MailTracker\MailTracker;
+use PHPUnit\Framework\Attributes\Test;
 
 class SkipListener
 {
@@ -24,8 +26,9 @@ class ContinueListener
     }
 }
 
-class MailTrackerControllerTest extends SetUpTest
+class MailTrackerControllerTest extends TestCase
 {
+    #[Test]
     public function testReadTrackingIsSkipped()
     {
         Event::listen(
@@ -48,6 +51,7 @@ class MailTrackerControllerTest extends SetUpTest
         $this->assertNull($email->opened_at);
     }
 
+    #[Test]
     public function testReadTrackingIsNotSkipped()
     {
         Event::listen(
@@ -70,6 +74,7 @@ class MailTrackerControllerTest extends SetUpTest
         $this->assertNotNull($email->opened_at);
     }
 
+    #[Test]
     public function testLinkTrackingIsSkipped()
     {
         Event::listen(
@@ -87,9 +92,9 @@ class MailTrackerControllerTest extends SetUpTest
 
         $redirect = 'http://' . Str::random(15) . '.com/' . Str::random(10) . '/' . Str::random(10) . '/' . rand(0, 100) . '/' . rand(0, 100) . '?page=' . rand(0, 100) . '&x=' . Str::random(32);
 
-        $this->get(route('mailTracker_l', [
-            MailTracker::hash_url($redirect), // Replace slash with dollar sign
-            $email->hash,
+        $this->get(URL::signedRoute('mailTracker_n', [
+            'l' => $redirect,
+            'h' => $email->hash,
         ]));
 
         $email->refresh();
@@ -98,6 +103,7 @@ class MailTrackerControllerTest extends SetUpTest
         $this->assertNull($email->clicked_at);
     }
 
+    #[Test]
     public function testLinkTrackingIsNotSkipped()
     {
         Event::listen(
@@ -115,9 +121,9 @@ class MailTrackerControllerTest extends SetUpTest
 
         $redirect = 'http://' . Str::random(15) . '.com/' . Str::random(10) . '/' . Str::random(10) . '/' . rand(0, 100) . '/' . rand(0, 100) . '?page=' . rand(0, 100) . '&x=' . Str::random(32);
 
-        $this->get(route('mailTracker_l', [
-            MailTracker::hash_url($redirect), // Replace slash with dollar sign
-            $email->hash,
+        $this->get(URL::signedRoute('mailTracker_n', [
+            'l' => $redirect,
+            'h' => $email->hash,
         ]));
 
         $email->refresh();
